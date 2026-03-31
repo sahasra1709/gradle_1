@@ -1,0 +1,38 @@
+pipeline {
+    agent any
+
+    tools {
+        jdk 'JDK'
+        gradle 'Gradle'
+    }
+
+    stages {
+
+        stage('Build') {
+            steps {
+                bat 'gradle build'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                bat 'gradle test'
+            }
+        }
+
+        stage('Package') {
+            steps {
+                bat 'gradle assemble'
+            }
+        }
+    }
+
+    post {
+        success {
+            echo 'Build Successful ✅'
+        }
+        failure {
+            echo 'Build Failed ❌'
+        }
+    }
+}
